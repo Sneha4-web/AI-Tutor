@@ -5,12 +5,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY_4")
+
+API_KEY = st.secrets["API_KEY_4"]
 
 client = OpenAI(
     api_key=API_KEY,
     base_url="https://api.groq.com/openai/v1"
 )
+
 
 
 def tutor_css():
