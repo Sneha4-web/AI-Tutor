@@ -17,7 +17,7 @@ The goal is to make the AI behave more like a personal tutor that
 understands the student's learning progress.
 
 ---
-
+ 
 ## 🎯 Problem Statement
 
 Students often study the same material regardless of their individual
