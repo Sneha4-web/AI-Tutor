@@ -115,7 +115,7 @@ st.markdown(
 # GROQ API
 # ============================================================
 
-API_KEY = os.getenv("API_KEY_5")
+API_KEY = st.secrets["API_KEY_5"]
 
 client = OpenAI(
     api_key=API_KEY,
