@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY_1")
+
+API_KEY = st.secrets("API_KEY_1")
 
 client = OpenAI(
     api_key=API_KEY,
