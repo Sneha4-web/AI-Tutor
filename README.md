@@ -11,7 +11,7 @@ identifies the concepts where the student needs improvement.
 
 The system follows an adaptive learning cycle:
 
-**Assess → Learn → Practice → Analyze → Improve → Review**
+**Assess → Learn → Practice → Analyze → Improve → Review** 
 
 The goal is to make the AI behave more like a personal tutor that
 understands the student's learning progress.
