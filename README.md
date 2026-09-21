@@ -113,7 +113,7 @@ Example:
 Topic: Quadratic Equations
 
 Basic Concepts       80%
-Factorization        60%
+Factorization        60% 
 Quadratic Formula    30%
 
 Overall Understanding: 57%
