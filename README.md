@@ -94,7 +94,7 @@ The student provides basic learning preferences such as:
 - Subject
 - Topic
 - Learning goal
-- Preferred difficulty level
+- Preferred difficulty level 
 
 This information helps the system personalize the learning experience.
 
