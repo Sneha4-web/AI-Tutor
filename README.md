@@ -120,3 +120,7 @@ Overall Understanding: 57%
 
 Recommendation:
 Revise Quadratic Formula before continuing.
+
+## Project Status
+
+AI Tutor project setup and core modules are now available.
