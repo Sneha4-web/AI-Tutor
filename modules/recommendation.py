@@ -4,11 +4,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY_3")
+API_KEY = st.secrets("API_KEY_3")
 
 client = OpenAI(
     api_key=API_KEY,
-    base_url="https://api.groq.com/openai/v1",
+    base_url="https://api.groq.com/openai/v1"
+)
     timeout=30.0
 )
 
