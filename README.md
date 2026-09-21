@@ -4,7 +4,7 @@
 
 BrainByte is an AI-powered Personal Tutor designed to provide a  
 personalized learning experience for students.
-
+  
 Unlike normal AI tools that simply answer questions or generate
 learning content, BrainByte studies the student's performance and  
 identifies the concepts where the student needs improvement.
