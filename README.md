@@ -124,3 +124,7 @@ Revise Quadratic Formula before continuing.
 ## Project Status
 
 AI Tutor project setup and core modules are now available.
+
+## Security
+
+API keys are stored in environment variables and excluded from version control.
