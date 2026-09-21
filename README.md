@@ -1,6 +1,6 @@
 # 🤖 BrainByte – Personal AI Tutor
 
-# About the Project   
+# About the Project    
 
 BrainByte is an AI-powered Personal Tutor designed to provide a
 personalized learning experience for students.
