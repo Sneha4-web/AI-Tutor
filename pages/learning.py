@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 # --------------------------------------------------
 # PAGE CONFIG
 # --------------------------------------------------
@@ -10,7 +9,6 @@ st.set_page_config(
     page_icon="📚",
     layout="wide"
 )
-
 
 # --------------------------------------------------
 # CUSTOM CSS
@@ -29,7 +27,6 @@ st.markdown("""
     padding-bottom: 3rem;
 }
 
-/* Header */
 .learning-header {
     text-align: center;
     padding: 25px;
@@ -47,7 +44,6 @@ st.markdown("""
     color: #666;
 }
 
-/* Main card */
 .learning-card {
     background: white;
     padding: 30px;
@@ -56,7 +52,6 @@ st.markdown("""
     margin-bottom: 25px;
 }
 
-/* Info box */
 .info-box {
     background: #eef3ff;
     padding: 18px;
@@ -65,7 +60,6 @@ st.markdown("""
     margin-bottom: 20px;
 }
 
-/* Button */
 .stButton > button {
     width: 100%;
     height: 52px;
@@ -74,7 +68,6 @@ st.markdown("""
     font-weight: 700;
 }
 
-/* Footer */
 .footer {
     text-align: center;
     color: #777;
@@ -85,7 +78,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 # --------------------------------------------------
 # HEADER
 # --------------------------------------------------
@@ -93,96 +85,24 @@ st.markdown("""
 st.markdown("""
 <div class="learning-header">
     <h1>📚 Start Learning</h1>
-    <p>Choose your subject and the exact topic you want to learn.</p>
+    <p>Choose the exact topic you want to learn.</p>
 </div>
 """, unsafe_allow_html=True)
 
-
 # --------------------------------------------------
-# TOPIC DATABASE
+# CHECK PROFILE SUBJECT
 # --------------------------------------------------
 
-topics = {
-    "Python": [
-        "Variables and Data Types",
-        "Conditional Statements",
-        "Loops",
-        "Functions",
-        "Lists",
-        "Tuples",
-        "Dictionaries",
-        "Sets",
-        "File Handling",
-        "Object-Oriented Programming",
-        "Exception Handling",
-        "Modules and Packages"
-    ],
+if "selected_subject" not in st.session_state:
+    st.warning("⚠️ Please create your learning profile first.")
 
-    "Physics": [
-        "Motion",
-        "Newton's Laws of Motion",
-        "Work and Energy",
-        "Gravitation",
-        "Waves",
-        "Electricity",
-        "Magnetism",
-        "Optics"
-    ],
+    if st.button("👤 Go to Profile"):
+        st.switch_page("pages/Profile.py")
 
-    "Mathematics": [
-        "Algebra",
-        "Linear Equations",
-        "Quadratic Equations",
-        "Trigonometry",
-        "Coordinate Geometry",
-        "Probability",
-        "Statistics",
-        "Calculus"
-    ],
+    st.stop()
 
-    "Biology": [
-        "Cell Structure",
-        "Cell Division",
-        "Photosynthesis",
-        "Respiration",
-        "Human Digestive System",
-        "Human Circulatory System",
-        "Genetics",
-        "Evolution"
-    ],
-
-    "Chemistry": [
-        "Atomic Structure",
-        "Periodic Table",
-        "Chemical Bonding",
-        "Chemical Reactions",
-        "Acids and Bases",
-        "Mole Concept",
-        "Thermodynamics",
-        "Organic Chemistry"
-    ],
-
-    "History": [
-        "Ancient Civilizations",
-        "Medieval History",
-        "World War I",
-        "World War II",
-        "Indian Independence",
-        "French Revolution",
-        "Industrial Revolution"
-    ],
-
-    "Computer Science": [
-        "Algorithms",
-        "Data Structures",
-        "Computer Networks",
-        "Operating Systems",
-        "Database Management",
-        "Cyber Security",
-        "Artificial Intelligence"
-    ]
-}
-
+# Get subject from Profile
+profile_subject = st.session_state.selected_subject.strip()
 
 # --------------------------------------------------
 # MAIN LEARNING CARD
@@ -192,66 +112,49 @@ st.markdown("""
 <div class="learning-card">
     <h2>🎯 Choose What You Want to Learn</h2>
     <p>
-        BrainByte lets you choose the specific topic you want to study.
-        You are not limited to Introduction or Basic Concepts.
+        BrainByte uses the subject from your profile.
+        You can choose a specific topic to study.
     </p>
 </div>
 """, unsafe_allow_html=True)
 
-
 # --------------------------------------------------
-# SUBJECT
+# SUBJECT FROM PROFILE
 # --------------------------------------------------
 
-subject = st.selectbox(
-    "📘 Select Subject",
-    [
-        "Python",
-        "Physics",
-        "Mathematics",
-        "Biology",
-        "Chemistry",
-        "History",
-        "Computer Science",
-        "Other"
-    ]
-)
+st.markdown("### 📘 Your Subject")
 
+st.info(f"**{profile_subject}**")
+
+subject = profile_subject
 
 # --------------------------------------------------
 # TOPIC
 # --------------------------------------------------
 
-if subject == "Other":
+st.markdown("### 🎯 What do you want to learn?")
 
-    topic = st.text_input(
-        "🎯 Enter Your Topic",
-        placeholder="Example: Economics, Geography, Psychology..."
-    )
+topic = st.text_input(
+    "Enter a topic",
+    placeholder=f"Example: Enter a topic related to {subject}"
+)
 
-else:
-
-    available_topics = topics[subject]
-
-    topic = st.selectbox(
-        "🎯 Select Topic",
-        available_topics
-    )
-
+st.caption(
+    f"You can enter any topic related to **{subject}**."
+)
 
 # --------------------------------------------------
 # EXTRA INFORMATION
 # --------------------------------------------------
 
-st.markdown("""
+st.markdown(f"""
 <div class="info-box">
     💡 <b>Example:</b><br>
-    Subject: Python<br>
-    Topic: Functions<br>
-    BrainByte will create a lesson specifically about Python Functions.
+    Subject: {subject}<br>
+    Topic: Enter the specific concept you want to learn.<br>
+    BrainByte will create a lesson specifically for your selected topic.
 </div>
 """, unsafe_allow_html=True)
-
 
 # --------------------------------------------------
 # DIFFICULTY
@@ -266,7 +169,6 @@ difficulty = st.selectbox(
         "Expert"
     ]
 )
-
 
 # --------------------------------------------------
 # EXPLANATION STYLE
@@ -283,9 +185,8 @@ learning_style = st.selectbox(
     ]
 )
 
-
 # --------------------------------------------------
-# START LEARNING BUTTON
+# START LEARNING
 # --------------------------------------------------
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -296,21 +197,20 @@ if st.button(
     type="primary"
 ):
 
-    if not topic or not topic.strip():
+    if not topic.strip():
 
-        st.warning("⚠️ Please select or enter a topic.")
+        st.warning("⚠️ Please enter a topic.")
 
     else:
 
         # Save information for AI Tutor
         st.session_state.selected_subject = subject
-        st.session_state.selected_topic = topic
+        st.session_state.selected_topic = topic.strip()
         st.session_state.selected_difficulty = difficulty
         st.session_state.selected_learning_style = learning_style
 
         # Open AI Tutor
         st.switch_page("pages/AI_Tutor.py")
-
 
 # --------------------------------------------------
 # FOOTER
