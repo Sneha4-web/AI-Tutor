@@ -271,4 +271,4 @@ if "ai_lesson" in st.session_state:
 
     if st.button("🎯 Take a Quiz"):
 
-        st.switch_page("pages/Quiz.py")
+        st.switch_page("pages/quiz.py")
