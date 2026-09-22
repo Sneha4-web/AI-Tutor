@@ -2,7 +2,7 @@ import streamlit as st
 
 
 # ============================================================
-# PAGE CONFIGURATION
+# PAGE CONFIG
 # ============================================================
 
 st.set_page_config(
@@ -48,390 +48,384 @@ if "selected_subject" not in st.session_state:
 # CUSTOM CSS
 # ============================================================
 
-st.markdown(
-    """
-    <style>
+st.markdown("""
+<style>
 
-    /* ========================================================
-       MAIN APP
-       ======================================================== */
+/* ============================================================
+   MAIN BACKGROUND
+   ============================================================ */
 
-    .stApp {
-        background:
-            radial-gradient(
-                circle at top left,
-                rgba(99, 102, 241, 0.12),
-                transparent 35%
-            ),
-            radial-gradient(
-                circle at bottom right,
-                rgba(139, 92, 246, 0.10),
-                transparent 35%
-            ),
-            var(--background-color);
-    }
-
-
-    /* ========================================================
-       MAIN CONTENT WIDTH
-       ======================================================== */
-
-    .block-container {
-        max-width: 1000px;
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-    }
+.stApp {
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99, 102, 241, 0.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(139, 92, 246, 0.10),
+            transparent 30%
+        ),
+        var(--background-color);
+}
 
 
-    /* ========================================================
-       PAGE TITLE
-       ======================================================== */
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
 
-    .profile-title {
-        text-align: center;
-        font-size: 46px;
-        font-weight: 800;
-        letter-spacing: -1px;
+.block-container {
+    max-width: 1000px;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+}
 
-        background: linear-gradient(
+
+/* ============================================================
+   TITLE
+   ============================================================ */
+
+h1 {
+    text-align: center !important;
+
+    font-size: 46px !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 5px !important;
+
+    background:
+        linear-gradient(
             90deg,
             #6366f1,
             #8b5cf6
         );
 
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        margin-bottom: 5px;
+
+.profile-subtitle {
+    text-align: center;
+
+    color: var(--text-color);
+
+    opacity: 0.70;
+
+    font-size: 18px;
+
+    margin-bottom: 35px;
+}
+
+
+/* ============================================================
+   REAL STREAMLIT CONTAINERS
+   This prevents the blank/black/white spaces problem.
+   ============================================================ */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--secondary-background-color) !important;
+
+    border: 1px solid rgba(
+        128,
+        128,
+        128,
+        0.22
+    ) !important;
+
+    border-radius: 18px !important;
+
+    padding: 20px 22px !important;
+
+    margin-bottom: 20px !important;
+
+    box-shadow:
+        0 6px 20px rgba(
+            0,
+            0,
+            0,
+            0.07
+        ) !important;
+}
+
+
+/* ============================================================
+   SECTION HEADINGS
+   ============================================================ */
+
+.section-heading {
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: var(--text-color);
+
+    margin-bottom: 15px;
+}
+
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.stTextInput input,
+.stNumberInput input {
+    background: var(--background-color) !important;
+
+    color: var(--text-color) !important;
+
+    border: 1px solid rgba(
+        128,
+        128,
+        128,
+        0.30
+    ) !important;
+
+    border-radius: 10px !important;
+}
+
+
+/* ============================================================
+   SELECT BOX
+   ============================================================ */
+
+.stSelectbox div[data-baseweb="select"] > div {
+    background: var(--background-color) !important;
+
+    color: var(--text-color) !important;
+
+    border: 1px solid rgba(
+        128,
+        128,
+        128,
+        0.30
+    ) !important;
+
+    border-radius: 10px !important;
+}
+
+
+/* ============================================================
+   INPUT LABELS
+   ============================================================ */
+
+label {
+    color: var(--text-color) !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.stButton > button {
+    min-height: 50px !important;
+
+    border-radius: 13px !important;
+
+    font-size: 16px !important;
+
+    font-weight: 700 !important;
+
+    border: none !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6366f1,
+            #8b5cf6
+        ) !important;
+
+    color: white !important;
+
+    box-shadow:
+        0 8px 20px rgba(
+            99,
+            102,
+            241,
+            0.25
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(
+            99,
+            102,
+            241,
+            0.35
+        );
+}
+
+
+/* ============================================================
+   PROFILE SUMMARY
+   ============================================================ */
+
+.profile-summary-title {
+    font-size: 24px;
+
+    font-weight: 750;
+
+    color: var(--text-color);
+
+    margin-bottom: 5px;
+}
+
+
+.profile-summary-subtitle {
+    color: var(--text-color);
+
+    opacity: 0.65;
+
+    margin-bottom: 20px;
+}
+
+
+/* ============================================================
+   PROFILE INFORMATION BOXES
+   ============================================================ */
+
+.profile-info-box {
+    background: var(--background-color);
+
+    border: 1px solid rgba(
+        128,
+        128,
+        128,
+        0.18
+    );
+
+    border-radius: 14px;
+
+    padding: 14px 16px;
+
+    margin-bottom: 10px;
+}
+
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+
+@media (prefers-color-scheme: dark) {
+
+    .stApp {
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.18
+                ),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 90% 90%,
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.15
+                ),
+                transparent 30%
+            ),
+            #0e1117;
+    }
+
+
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        background: #161b22 !important;
+
+        border-color: #30363d !important;
+
+        box-shadow:
+            0 8px 25px rgba(
+                0,
+                0,
+                0,
+                0.35
+            ) !important;
+    }
+
+
+    .profile-info-box {
+        background: #0e1117;
+
+        border-color: #30363d;
+    }
+
+
+    .stTextInput input,
+    .stNumberInput input,
+    .stSelectbox div[data-baseweb="select"] > div {
+        background: #0e1117 !important;
+
+        border-color: #30363d !important;
+    }
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .block-container {
+        padding-top: 2rem;
+
+        padding-left: 1rem;
+
+        padding-right: 1rem;
+    }
+
+
+    h1 {
+        font-size: 36px !important;
     }
 
 
     .profile-subtitle {
-        text-align: center;
-        font-size: 18px;
-        color: var(--text-color);
-        opacity: 0.70;
-        margin-bottom: 35px;
+        font-size: 16px;
     }
 
-
-    /* ========================================================
-       SECTION CARDS
-       ======================================================== */
 
     [data-testid="stVerticalBlockBorderWrapper"] {
-        background: var(--secondary-background-color) !important;
+        padding: 17px !important;
 
-        border: 1px solid rgba(128, 128, 128, 0.22) !important;
-
-        border-radius: 18px !important;
-
-        padding: 22px 24px !important;
-
-        margin-bottom: 20px !important;
-
-        box-shadow:
-            0 6px 20px rgba(0, 0, 0, 0.07) !important;
+        border-radius: 14px !important;
     }
+}
 
-
-    /* ========================================================
-       SECTION TITLES
-       ======================================================== */
-
-    .section-title {
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--text-color);
-        margin-bottom: 15px;
-    }
-
-
-    /* ========================================================
-       INPUTS
-       ======================================================== */
-
-    .stTextInput input,
-    .stNumberInput input {
-        background: var(--background-color) !important;
-
-        color: var(--text-color) !important;
-
-        border: 1px solid rgba(
-            128,
-            128,
-            128,
-            0.30
-        ) !important;
-
-        border-radius: 10px !important;
-    }
-
-
-    /* ========================================================
-       SELECT BOX
-       ======================================================== */
-
-    .stSelectbox div[data-baseweb="select"] > div {
-        background: var(--background-color) !important;
-
-        color: var(--text-color) !important;
-
-        border: 1px solid rgba(
-            128,
-            128,
-            128,
-            0.30
-        ) !important;
-
-        border-radius: 10px !important;
-    }
-
-
-    /* ========================================================
-       LABELS
-       ======================================================== */
-
-    label {
-        color: var(--text-color) !important;
-        font-weight: 600 !important;
-    }
-
-
-    /* ========================================================
-       BUTTONS
-       ======================================================== */
-
-    .stButton > button {
-        width: 100%;
-
-        min-height: 50px;
-
-        border-radius: 13px !important;
-
-        font-size: 16px !important;
-
-        font-weight: 700 !important;
-
-        border: none !important;
-
-        background:
-            linear-gradient(
-                90deg,
-                #6366f1,
-                #8b5cf6
-            ) !important;
-
-        color: white !important;
-
-        box-shadow:
-            0 7px 18px rgba(
-                99,
-                102,
-                241,
-                0.25
-            );
-
-        transition: all 0.2s ease-in-out;
-    }
-
-
-    .stButton > button:hover {
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 11px 25px rgba(
-                99,
-                102,
-                241,
-                0.35
-            );
-    }
-
-
-    /* ========================================================
-       PROFILE SUMMARY CARD
-       ======================================================== */
-
-    .profile-summary {
-        background: var(--secondary-background-color);
-
-        border: 1px solid rgba(
-            128,
-            128,
-            128,
-            0.22
-        );
-
-        border-radius: 18px;
-
-        padding: 25px;
-
-        margin-top: 10px;
-
-        color: var(--text-color);
-
-        box-shadow:
-            0 6px 20px rgba(
-                0,
-                0,
-                0,
-                0.07
-            );
-    }
-
-
-    .profile-summary-name {
-        font-size: 24px;
-        font-weight: 700;
-
-        color: var(--text-color);
-
-        margin-bottom: 20px;
-    }
-
-
-    .profile-row {
-        padding: 10px 0;
-
-        border-bottom:
-            1px solid rgba(
-                128,
-                128,
-                128,
-                0.15
-            );
-
-        font-size: 16px;
-
-        color: var(--text-color);
-    }
-
-
-    .profile-row:last-child {
-        border-bottom: none;
-    }
-
-
-    .profile-label {
-        font-weight: 700;
-    }
-
-
-    /* ========================================================
-       DARK MODE
-       ======================================================== */
-
-    @media (prefers-color-scheme: dark) {
-
-        .stApp {
-            background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(
-                        99,
-                        102,
-                        241,
-                        0.18
-                    ),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    rgba(
-                        139,
-                        92,
-                        246,
-                        0.14
-                    ),
-                    transparent 35%
-                ),
-                #0e1117;
-        }
-
-
-        [data-testid="stVerticalBlockBorderWrapper"] {
-            background: #161b22 !important;
-
-            border-color: #30363d !important;
-
-            box-shadow:
-                0 8px 25px rgba(
-                    0,
-                    0,
-                    0,
-                    0.35
-                ) !important;
-        }
-
-
-        .profile-summary {
-            background: #161b22;
-
-            border-color: #30363d;
-
-            box-shadow:
-                0 8px 25px rgba(
-                    0,
-                    0,
-                    0,
-                    0.35
-                );
-        }
-
-
-        .stTextInput input,
-        .stNumberInput input,
-        .stSelectbox div[data-baseweb="select"] > div {
-            background: #0d1117 !important;
-
-            border-color: #30363d !important;
-        }
-    }
-
-
-    /* ========================================================
-       MOBILE
-       ======================================================== */
-
-    @media (max-width: 768px) {
-
-        .profile-title {
-            font-size: 36px;
-        }
-
-        .profile-subtitle {
-            font-size: 16px;
-        }
-
-        [data-testid="stVerticalBlockBorderWrapper"] {
-            padding: 17px !important;
-            border-radius: 14px !important;
-        }
-
-        .profile-summary {
-            padding: 20px;
-        }
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+</style>
+""", unsafe_allow_html=True)
 
 
 # ============================================================
 # PAGE HEADER
 # ============================================================
 
-st.markdown(
-    '<div class="profile-title">🧠 BrainByte</div>',
-    unsafe_allow_html=True
-)
+st.title("👤 Your Profile")
 
 st.markdown(
     '<div class="profile-subtitle">'
-    'Create your personal learning profile'
+    'Create your profile to personalize your BrainByte learning experience.'
     '</div>',
     unsafe_allow_html=True
 )
@@ -444,7 +438,7 @@ st.markdown(
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">'
+        '<div class="section-heading">'
         '👤 Basic Information'
         '</div>',
         unsafe_allow_html=True
@@ -478,7 +472,7 @@ with st.container(border=True):
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">'
+        '<div class="section-heading">'
         '📚 Learning Subject'
         '</div>',
         unsafe_allow_html=True
@@ -503,7 +497,7 @@ with st.container(border=True):
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">'
+        '<div class="section-heading">'
         '🎯 Learning Goal'
         '</div>',
         unsafe_allow_html=True
@@ -536,7 +530,7 @@ with st.container(border=True):
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">'
+        '<div class="section-heading">'
         '⏰ Daily Study Time'
         '</div>',
         unsafe_allow_html=True
@@ -571,7 +565,7 @@ with st.container(border=True):
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">'
+        '<div class="section-heading">'
         '🧠 Learning Style'
         '</div>',
         unsafe_allow_html=True
@@ -622,13 +616,13 @@ if st.button(
         )
 
     elif subject_input.strip() == "":
-        st.error("Please enter a subject.")
+        st.error(
+            "Please enter a subject."
+        )
 
     else:
 
-        st.session_state.student_name = (
-            name.strip()
-        )
+        st.session_state.student_name = name.strip()
 
         st.session_state.age = age
 
@@ -646,9 +640,7 @@ if st.button(
 
         st.session_state.goal = goal
 
-        st.session_state.study_time = (
-            study_time
-        )
+        st.session_state.study_time = study_time
 
         st.session_state.learning_style = (
             learning_style
@@ -662,85 +654,124 @@ if st.button(
 
 
 # ============================================================
-# PROFILE SUMMARY
+# SAVED PROFILE
 # ============================================================
 
 if st.session_state.profile_created:
 
     st.markdown("---")
 
-    st.markdown("### 📋 Your Profile")
-
-    if st.session_state.subjects:
-        subject_display = (
-            st.session_state.subjects[0]
-        )
-    else:
-        subject_display = "Not specified"
-
     # IMPORTANT:
-    # This is a normal HTML div rendered with
-    # st.markdown().
-    #
-    # It is NOT st.code() and NOT st.write().
-    #
-    # Therefore the HTML tags will NOT appear
-    # as visible code on the page.
+    # The saved profile uses ONLY normal Streamlit widgets.
+    # There is NO HTML here.
+    # Therefore <h3>, <p>, <b>, etc. CANNOT appear.
 
-    st.markdown(
-        f"""
-        <div class="profile-summary">
+    with st.container(border=True):
 
-            <div class="profile-summary-name">
-                👋 Welcome, {st.session_state.student_name}!
-            </div>
+        st.markdown(
+            "### 📋 Your Profile"
+        )
 
-            <div class="profile-row">
-                <span class="profile-label">
-                    Age:
-                </span>
-                {st.session_state.age}
-            </div>
+        st.caption(
+            f"Welcome back, {st.session_state.student_name}! "
+            "Your personalized learning profile is ready."
+        )
 
-            <div class="profile-row">
-                <span class="profile-label">
-                    Class / Learning Level:
-                </span>
-                {st.session_state.student_class}
-            </div>
+        # ----------------------------------------------------
+        # ROW 1
+        # ----------------------------------------------------
 
-            <div class="profile-row">
-                <span class="profile-label">
-                    Subject:
-                </span>
-                {subject_display}
-            </div>
+        col1, col2 = st.columns(2)
 
-            <div class="profile-row">
-                <span class="profile-label">
-                    Learning Goal:
-                </span>
-                {st.session_state.goal}
-            </div>
+        with col1:
 
-            <div class="profile-row">
-                <span class="profile-label">
-                    Daily Study Time:
-                </span>
-                {st.session_state.study_time}
-            </div>
+            st.markdown(
+                "#### 👤 Name"
+            )
 
-            <div class="profile-row">
-                <span class="profile-label">
-                    Learning Style:
-                </span>
-                {st.session_state.learning_style}
-            </div>
+            st.info(
+                st.session_state.student_name
+            )
 
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+        with col2:
+
+            st.markdown(
+                "#### 🎂 Age"
+            )
+
+            st.info(
+                str(st.session_state.age)
+            )
+
+        # ----------------------------------------------------
+        # ROW 2
+        # ----------------------------------------------------
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.markdown(
+                "#### 🎓 Class / Learning Level"
+            )
+
+            st.info(
+                st.session_state.student_class
+            )
+
+        with col2:
+
+            subject_display = (
+                st.session_state.subjects[0]
+                if st.session_state.subjects
+                else "Not specified"
+            )
+
+            st.markdown(
+                "#### 📚 Subject"
+            )
+
+            st.info(
+                subject_display
+            )
+
+        # ----------------------------------------------------
+        # ROW 3
+        # ----------------------------------------------------
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.markdown(
+                "#### 🎯 Learning Goal"
+            )
+
+            st.info(
+                st.session_state.goal
+            )
+
+        with col2:
+
+            st.markdown(
+                "#### ⏰ Daily Study Time"
+            )
+
+            st.info(
+                st.session_state.study_time
+            )
+
+        # ----------------------------------------------------
+        # ROW 4
+        # ----------------------------------------------------
+
+        st.markdown(
+            "#### 🧠 Learning Style"
+        )
+
+        st.info(
+            st.session_state.learning_style
+        )
 
 
 # ============================================================
@@ -756,4 +787,6 @@ if st.session_state.profile_created:
         use_container_width=True,
         type="primary"
     ):
-        st.switch_page("pages/learning.py")
+        st.switch_page(
+            "pages/learning.py"
+        )
