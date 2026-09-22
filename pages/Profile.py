@@ -1,9 +1,9 @@
 import streamlit as st
 
 
-# --------------------------------------------------
-# PAGE CONFIG
-# --------------------------------------------------
+# ============================================================
+# PAGE CONFIGURATION
+# ============================================================
 
 st.set_page_config(
     page_title="Brainbyte Profile",
@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 
-# --------------------------------------------------
+# ============================================================
 # SESSION STATE
-# --------------------------------------------------
+# ============================================================
 
 if "student_name" not in st.session_state:
     st.session_state.student_name = ""
@@ -40,360 +40,413 @@ if "learning_style" not in st.session_state:
 if "profile_created" not in st.session_state:
     st.session_state.profile_created = False
 
+if "selected_subject" not in st.session_state:
+    st.session_state.selected_subject = ""
 
-# --------------------------------------------------
-# CSS
-# --------------------------------------------------
 
-st.markdown("""
-<style>
+# ============================================================
+# CUSTOM CSS
+# ============================================================
 
-/* ==================================================
-   BRAINBYTE PROFILE
-   Light + Dark Theme
-   ================================================== */
+st.markdown(
+    """
+    <style>
 
-.stApp {
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(99, 102, 241, 0.14),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            rgba(139, 92, 246, 0.10),
-            transparent 35%
-        ),
-        var(--background-color);
-}
-
-
-/* ---------- Main Container ---------- */
-
-.block-container {
-    max-width: 1000px;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-
-/* ---------- Header ---------- */
-
-.brainbyte-title {
-    text-align: center;
-
-    font-size: 46px;
-    font-weight: 800;
-
-    letter-spacing: -1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6366f1,
-            #8b5cf6
-        );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-
-.brainbyte-subtitle {
-    text-align: center;
-
-    font-size: 18px;
-
-    color: var(--text-color);
-
-    opacity: 0.7;
-
-    margin-bottom: 35px;
-}
-
-
-/* ---------- Section Titles ---------- */
-
-.section-title {
-    font-size: 23px;
-    font-weight: 700;
-
-    color: var(--text-color);
-
-    margin-bottom: 15px;
-}
-
-
-/* ---------- Streamlit Containers ---------- */
-
-[data-testid="stVerticalBlockBorderWrapper"] {
-    background: var(--secondary-background-color) !important;
-
-    border:
-        1px solid rgba(128, 128, 128, 0.22) !important;
-
-    border-radius: 18px !important;
-
-    padding: 22px 24px !important;
-
-    margin-bottom: 20px !important;
-
-    box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.08) !important;
-}
-
-
-/* ---------- Input Labels ---------- */
-
-label {
-    color: var(--text-color) !important;
-
-    font-weight: 600 !important;
-}
-
-
-/* ---------- Inputs ---------- */
-
-.stTextInput input,
-.stNumberInput input,
-.stSelectbox div[data-baseweb="select"] > div {
-    background: var(--background-color) !important;
-
-    color: var(--text-color) !important;
-
-    border:
-        1px solid rgba(128, 128, 128, 0.30) !important;
-
-    border-radius: 10px !important;
-}
-
-
-/* ---------- Input Focus ---------- */
-
-.stTextInput input:focus,
-.stNumberInput input:focus {
-    border-color:
-        var(--primary-color) !important;
-
-    box-shadow:
-        0 0 0 1px var(--primary-color) !important;
-}
-
-
-/* ---------- Selectbox Text ---------- */
-
-.stSelectbox div[data-baseweb="select"] span {
-    color: var(--text-color) !important;
-}
-
-
-/* ---------- Buttons ---------- */
-
-.stButton > button {
-    width: 100%;
-
-    min-height: 50px;
-
-    border-radius: 13px !important;
-
-    font-size: 16px !important;
-
-    font-weight: 700 !important;
-
-    border: none !important;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6366f1,
-            #8b5cf6
-        ) !important;
-
-    color: white !important;
-
-    box-shadow:
-        0 7px 18px rgba(99, 102, 241, 0.25);
-
-    transition: all 0.2s ease-in-out;
-}
-
-
-/* ---------- Button Hover ---------- */
-
-.stButton > button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 11px 25px rgba(99, 102, 241, 0.35);
-}
-
-
-/* ---------- Profile Summary ---------- */
-
-.profile-summary {
-    background: var(--secondary-background-color);
-
-    border:
-        1px solid rgba(128, 128, 128, 0.22);
-
-    border-radius: 18px;
-
-    padding: 24px;
-
-    margin-top: 10px;
-
-    color: var(--text-color);
-
-    box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-
-.profile-summary h3 {
-    margin-top: 0;
-
-    margin-bottom: 20px;
-
-    color: var(--text-color);
-
-    font-size: 24px;
-}
-
-
-.profile-summary p {
-    color: var(--text-color);
-
-    font-size: 16px;
-
-    line-height: 1.8;
-
-    margin: 7px 0;
-}
-
-
-.profile-summary b {
-    color: var(--text-color);
-}
-
-
-/* ---------- Success Message ---------- */
-
-[data-testid="stAlert"] {
-    border-radius: 12px;
-}
-
-
-/* ---------- Divider ---------- */
-
-hr {
-    border-color:
-        rgba(128, 128, 128, 0.25) !important;
-}
-
-
-/* ==================================================
-   DARK MODE
-   ================================================== */
-
-@media (prefers-color-scheme: dark) {
+    /* ========================================================
+       MAIN APP
+       ======================================================== */
 
     .stApp {
         background:
             radial-gradient(
                 circle at top left,
-                rgba(99, 102, 241, 0.18),
+                rgba(99, 102, 241, 0.12),
                 transparent 35%
             ),
             radial-gradient(
                 circle at bottom right,
-                rgba(139, 92, 246, 0.14),
+                rgba(139, 92, 246, 0.10),
                 transparent 35%
             ),
-            #0e1117;
+            var(--background-color);
     }
 
+
+    /* ========================================================
+       MAIN CONTENT WIDTH
+       ======================================================== */
+
+    .block-container {
+        max-width: 1000px;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+
+    /* ========================================================
+       PAGE TITLE
+       ======================================================== */
+
+    .profile-title {
+        text-align: center;
+        font-size: 46px;
+        font-weight: 800;
+        letter-spacing: -1px;
+
+        background: linear-gradient(
+            90deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        margin-bottom: 5px;
+    }
+
+
+    .profile-subtitle {
+        text-align: center;
+        font-size: 18px;
+        color: var(--text-color);
+        opacity: 0.70;
+        margin-bottom: 35px;
+    }
+
+
+    /* ========================================================
+       SECTION CARDS
+       ======================================================== */
 
     [data-testid="stVerticalBlockBorderWrapper"] {
-        background: #161b22 !important;
+        background: var(--secondary-background-color) !important;
 
-        border-color: #30363d !important;
+        border: 1px solid rgba(128, 128, 128, 0.22) !important;
+
+        border-radius: 18px !important;
+
+        padding: 22px 24px !important;
+
+        margin-bottom: 20px !important;
 
         box-shadow:
-            0 8px 25px rgba(0, 0, 0, 0.35) !important;
+            0 6px 20px rgba(0, 0, 0, 0.07) !important;
     }
 
 
-    .profile-summary {
-        background: #161b22;
+    /* ========================================================
+       SECTION TITLES
+       ======================================================== */
 
-        border-color: #30363d;
-
-        box-shadow:
-            0 8px 25px rgba(0, 0, 0, 0.35);
+    .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 15px;
     }
 
+
+    /* ========================================================
+       INPUTS
+       ======================================================== */
 
     .stTextInput input,
-    .stNumberInput input,
+    .stNumberInput input {
+        background: var(--background-color) !important;
+
+        color: var(--text-color) !important;
+
+        border: 1px solid rgba(
+            128,
+            128,
+            128,
+            0.30
+        ) !important;
+
+        border-radius: 10px !important;
+    }
+
+
+    /* ========================================================
+       SELECT BOX
+       ======================================================== */
+
     .stSelectbox div[data-baseweb="select"] > div {
-        background: #0d1117 !important;
+        background: var(--background-color) !important;
 
-        border-color: #30363d !important;
-    }
-}
+        color: var(--text-color) !important;
 
+        border: 1px solid rgba(
+            128,
+            128,
+            128,
+            0.30
+        ) !important;
 
-/* ==================================================
-   MOBILE
-   ================================================== */
-
-@media (max-width: 768px) {
-
-    .brainbyte-title {
-        font-size: 36px;
+        border-radius: 10px !important;
     }
 
-    .brainbyte-subtitle {
+
+    /* ========================================================
+       LABELS
+       ======================================================== */
+
+    label {
+        color: var(--text-color) !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* ========================================================
+       BUTTONS
+       ======================================================== */
+
+    .stButton > button {
+        width: 100%;
+
+        min-height: 50px;
+
+        border-radius: 13px !important;
+
+        font-size: 16px !important;
+
+        font-weight: 700 !important;
+
+        border: none !important;
+
+        background:
+            linear-gradient(
+                90deg,
+                #6366f1,
+                #8b5cf6
+            ) !important;
+
+        color: white !important;
+
+        box-shadow:
+            0 7px 18px rgba(
+                99,
+                102,
+                241,
+                0.25
+            );
+
+        transition: all 0.2s ease-in-out;
+    }
+
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 11px 25px rgba(
+                99,
+                102,
+                241,
+                0.35
+            );
+    }
+
+
+    /* ========================================================
+       PROFILE SUMMARY CARD
+       ======================================================== */
+
+    .profile-summary {
+        background: var(--secondary-background-color);
+
+        border: 1px solid rgba(
+            128,
+            128,
+            128,
+            0.22
+        );
+
+        border-radius: 18px;
+
+        padding: 25px;
+
+        margin-top: 10px;
+
+        color: var(--text-color);
+
+        box-shadow:
+            0 6px 20px rgba(
+                0,
+                0,
+                0,
+                0.07
+            );
+    }
+
+
+    .profile-summary-name {
+        font-size: 24px;
+        font-weight: 700;
+
+        color: var(--text-color);
+
+        margin-bottom: 20px;
+    }
+
+
+    .profile-row {
+        padding: 10px 0;
+
+        border-bottom:
+            1px solid rgba(
+                128,
+                128,
+                128,
+                0.15
+            );
+
         font-size: 16px;
+
+        color: var(--text-color);
     }
 
-    [data-testid="stVerticalBlockBorderWrapper"] {
-        padding: 17px !important;
 
-        border-radius: 14px !important;
+    .profile-row:last-child {
+        border-bottom: none;
     }
-}
-
-</style>
-""", unsafe_allow_html=True)
 
 
-# --------------------------------------------------
-# HEADER
-# --------------------------------------------------
+    .profile-label {
+        font-weight: 700;
+    }
+
+
+    /* ========================================================
+       DARK MODE
+       ======================================================== */
+
+    @media (prefers-color-scheme: dark) {
+
+        .stApp {
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(
+                        99,
+                        102,
+                        241,
+                        0.18
+                    ),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(
+                        139,
+                        92,
+                        246,
+                        0.14
+                    ),
+                    transparent 35%
+                ),
+                #0e1117;
+        }
+
+
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            background: #161b22 !important;
+
+            border-color: #30363d !important;
+
+            box-shadow:
+                0 8px 25px rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                ) !important;
+        }
+
+
+        .profile-summary {
+            background: #161b22;
+
+            border-color: #30363d;
+
+            box-shadow:
+                0 8px 25px rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+        }
+
+
+        .stTextInput input,
+        .stNumberInput input,
+        .stSelectbox div[data-baseweb="select"] > div {
+            background: #0d1117 !important;
+
+            border-color: #30363d !important;
+        }
+    }
+
+
+    /* ========================================================
+       MOBILE
+       ======================================================== */
+
+    @media (max-width: 768px) {
+
+        .profile-title {
+            font-size: 36px;
+        }
+
+        .profile-subtitle {
+            font-size: 16px;
+        }
+
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            padding: 17px !important;
+            border-radius: 14px !important;
+        }
+
+        .profile-summary {
+            padding: 20px;
+        }
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# ============================================================
+# PAGE HEADER
+# ============================================================
 
 st.markdown(
-    '<div class="brainbyte-title">🧠 BrainByte</div>',
+    '<div class="profile-title">🧠 BrainByte</div>',
     unsafe_allow_html=True
 )
 
 st.markdown(
-    '<div class="brainbyte-subtitle">'
-    'Personal AI Tutor · Create Your Learning Profile'
+    '<div class="profile-subtitle">'
+    'Create your personal learning profile'
     '</div>',
     unsafe_allow_html=True
 )
 
 
-# --------------------------------------------------
+# ============================================================
 # BASIC INFORMATION
-# --------------------------------------------------
+# ============================================================
 
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">👤 Basic Information</div>',
+        '<div class="section-title">'
+        '👤 Basic Information'
+        '</div>',
         unsafe_allow_html=True
     )
 
@@ -407,24 +460,27 @@ with st.container(border=True):
         "Age",
         min_value=5,
         max_value=100,
-        value=st.session_state.age
+        value=st.session_state.age,
+        step=1
     )
 
     learning_level = st.text_input(
         "Class / Learning Level",
         value=st.session_state.student_class,
-        placeholder="Example: BCA, Class 12, Beginner"
+        placeholder="Example: BCA, College, Class 12"
     )
 
 
-# --------------------------------------------------
+# ============================================================
 # SUBJECT
-# --------------------------------------------------
+# ============================================================
 
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">📚 Learning Subject</div>',
+        '<div class="section-title">'
+        '📚 Learning Subject'
+        '</div>',
         unsafe_allow_html=True
     )
 
@@ -436,18 +492,20 @@ with st.container(border=True):
     subject_input = st.text_input(
         "Subject",
         value=current_subject,
-        placeholder="Example: Physics, Mathematics, Python"
+        placeholder="Example: Physics, Data Structure, Python"
     )
 
 
-# --------------------------------------------------
+# ============================================================
 # LEARNING GOAL
-# --------------------------------------------------
+# ============================================================
 
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">🎯 Learning Goal</div>',
+        '<div class="section-title">'
+        '🎯 Learning Goal'
+        '</div>',
         unsafe_allow_html=True
     )
 
@@ -471,14 +529,16 @@ with st.container(border=True):
     )
 
 
-# --------------------------------------------------
-# STUDY TIME
-# --------------------------------------------------
+# ============================================================
+# DAILY STUDY TIME
+# ============================================================
 
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">⏰ Daily Study Time</div>',
+        '<div class="section-title">'
+        '⏰ Daily Study Time'
+        '</div>',
         unsafe_allow_html=True
     )
 
@@ -498,18 +558,22 @@ with st.container(border=True):
     study_time = st.selectbox(
         "How much time can you study each day?",
         study_options,
-        index=study_options.index(current_study_time)
+        index=study_options.index(
+            current_study_time
+        )
     )
 
 
-# --------------------------------------------------
+# ============================================================
 # LEARNING STYLE
-# --------------------------------------------------
+# ============================================================
 
 with st.container(border=True):
 
     st.markdown(
-        '<div class="section-title">🧠 Learning Style</div>',
+        '<div class="section-title">'
+        '🧠 Learning Style'
+        '</div>',
         unsafe_allow_html=True
     )
 
@@ -521,7 +585,9 @@ with st.container(border=True):
         "Detailed Explanation"
     ]
 
-    current_learning_style = st.session_state.learning_style
+    current_learning_style = (
+        st.session_state.learning_style
+    )
 
     if current_learning_style not in learning_style_options:
         current_learning_style = "Simple Explanation"
@@ -535,9 +601,9 @@ with st.container(border=True):
     )
 
 
-# --------------------------------------------------
+# ============================================================
 # SAVE PROFILE
-# --------------------------------------------------
+# ============================================================
 
 st.markdown("---")
 
@@ -551,14 +617,18 @@ if st.button(
         st.error("Please enter your name.")
 
     elif learning_level.strip() == "":
-        st.error("Please enter your class or learning level.")
+        st.error(
+            "Please enter your class or learning level."
+        )
 
     elif subject_input.strip() == "":
         st.error("Please enter a subject.")
 
     else:
 
-        st.session_state.student_name = name.strip()
+        st.session_state.student_name = (
+            name.strip()
+        )
 
         st.session_state.age = age
 
@@ -570,9 +640,15 @@ if st.button(
             subject_input.strip()
         ]
 
+        st.session_state.selected_subject = (
+            subject_input.strip()
+        )
+
         st.session_state.goal = goal
 
-        st.session_state.study_time = study_time
+        st.session_state.study_time = (
+            study_time
+        )
 
         st.session_state.learning_style = (
             learning_style
@@ -580,71 +656,86 @@ if st.button(
 
         st.session_state.profile_created = True
 
-        # Used by other pages if needed
-        st.session_state.selected_subject = (
-            subject_input.strip()
-        )
-
         st.success(
             "✅ Your profile has been saved successfully!"
         )
 
 
-# --------------------------------------------------
+# ============================================================
 # PROFILE SUMMARY
-# --------------------------------------------------
+# ============================================================
 
 if st.session_state.profile_created:
 
     st.markdown("---")
 
-    st.markdown(
-        "### 📋 Your Profile"
-    )
+    st.markdown("### 📋 Your Profile")
 
-    subject_display = (
-        st.session_state.subjects[0]
-        if st.session_state.subjects
-        else "Not specified"
-    )
+    if st.session_state.subjects:
+        subject_display = (
+            st.session_state.subjects[0]
+        )
+    else:
+        subject_display = "Not specified"
+
+    # IMPORTANT:
+    # This is a normal HTML div rendered with
+    # st.markdown().
+    #
+    # It is NOT st.code() and NOT st.write().
+    #
+    # Therefore the HTML tags will NOT appear
+    # as visible code on the page.
 
     st.markdown(
         f"""
         <div class="profile-summary">
 
-            <h3>
-                Welcome, {st.session_state.student_name}! 👋
-            </h3>
+            <div class="profile-summary-name">
+                👋 Welcome, {st.session_state.student_name}!
+            </div>
 
-            <p>
-                <b>Age:</b>
+            <div class="profile-row">
+                <span class="profile-label">
+                    Age:
+                </span>
                 {st.session_state.age}
-            </p>
+            </div>
 
-            <p>
-                <b>Class / Learning Level:</b>
+            <div class="profile-row">
+                <span class="profile-label">
+                    Class / Learning Level:
+                </span>
                 {st.session_state.student_class}
-            </p>
+            </div>
 
-            <p>
-                <b>Subject:</b>
+            <div class="profile-row">
+                <span class="profile-label">
+                    Subject:
+                </span>
                 {subject_display}
-            </p>
+            </div>
 
-            <p>
-                <b>Learning Goal:</b>
+            <div class="profile-row">
+                <span class="profile-label">
+                    Learning Goal:
+                </span>
                 {st.session_state.goal}
-            </p>
+            </div>
 
-            <p>
-                <b>Daily Study Time:</b>
+            <div class="profile-row">
+                <span class="profile-label">
+                    Daily Study Time:
+                </span>
                 {st.session_state.study_time}
-            </p>
+            </div>
 
-            <p>
-                <b>Learning Style:</b>
+            <div class="profile-row">
+                <span class="profile-label">
+                    Learning Style:
+                </span>
                 {st.session_state.learning_style}
-            </p>
+            </div>
 
         </div>
         """,
@@ -652,9 +743,9 @@ if st.session_state.profile_created:
     )
 
 
-# --------------------------------------------------
+# ============================================================
 # START LEARNING
-# --------------------------------------------------
+# ============================================================
 
 if st.session_state.profile_created:
 
