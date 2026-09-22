@@ -6,13 +6,6 @@ import pandas as pd
 from openai import OpenAI
 from dotenv import load_dotenv
 
-load_dotenv()
-
-
-
-st.page_link("pages/dashboard.py", label="Progress Hub",
-             icon="📈")
-
 
 # ============================================================
 # PAGE SETTINGS
@@ -26,6 +19,24 @@ st.set_page_config(
 
 
 # ============================================================
+# PROGRESS HUB
+# ============================================================
+
+st.page_link(
+    "pages/dashboard.py",
+    label="Progress Hub",
+    icon="📈"
+)
+
+
+# ============================================================
+# LOAD ENVIRONMENT
+# ============================================================
+
+load_dotenv()
+
+
+# ============================================================
 # CSS
 # ============================================================
 
@@ -33,76 +44,198 @@ st.markdown(
     """
     <style>
 
-    /* Main background */
+    /* ========================================================
+       MAIN BACKGROUND
+       ======================================================== */
+
     .stApp {
-        background: #f5f7fb;
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(99, 102, 241, 0.12),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at bottom right,
+                rgba(139, 92, 246, 0.10),
+                transparent 35%
+            ),
+            var(--background-color);
     }
 
-    /* Header */
-    .quiz-header {
-        padding: 30px;
-        border-radius: 20px;
-        background: linear-gradient(
-            135deg,
-            #667eea,
-            #764ba2
-        );
-        color: white;
-        margin-bottom: 25px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+
+    /* ========================================================
+       MAIN CONTENT
+       ======================================================== */
+
+    .block-container {
+        max-width: 1000px;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
     }
 
-    .quiz-header h1 {
-        font-size: 40px;
-        margin-bottom: 5px;
+
+    /* ========================================================
+       NORMAL STREAMLIT CONTAINERS
+       ======================================================== */
+
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        background: var(--secondary-background-color) !important;
+
+        border:
+            1px solid rgba(
+                128,
+                128,
+                128,
+                0.22
+            ) !important;
+
+        border-radius: 18px !important;
+
+        padding: 20px 22px !important;
+
+        margin-bottom: 20px !important;
+
+        box-shadow:
+            0 6px 20px rgba(
+                0,
+                0,
+                0,
+                0.07
+            ) !important;
     }
 
-    .quiz-header p {
-        font-size: 17px;
-        margin: 0;
+
+    /* ========================================================
+       BUTTONS
+       ======================================================== */
+
+    .stButton > button {
+        min-height: 50px !important;
+
+        border-radius: 13px !important;
+
+        font-size: 16px !important;
+
+        font-weight: 700 !important;
+
+        border: none !important;
+
+        background:
+            linear-gradient(
+                90deg,
+                #6366f1,
+                #8b5cf6
+            ) !important;
+
+        color: white !important;
+
+        box-shadow:
+            0 8px 20px rgba(
+                99,
+                102,
+                241,
+                0.25
+            );
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
     }
 
-    /* Question cards */
-    .quiz-card {
-        padding: 22px;
-        margin: 15px 0;
-        border-radius: 18px;
-        background: white;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 28px rgba(
+                99,
+                102,
+                241,
+                0.35
+            );
     }
 
-    /* Result card */
-    .result-card {
-        padding: 25px;
-        margin-top: 20px;
-        border-radius: 18px;
-        background: white;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+
+    /* ========================================================
+       RADIO BUTTONS
+       ======================================================== */
+
+    div[data-testid="stRadio"] label {
+        color: var(--text-color) !important;
     }
 
-    .score-number {
-        font-size: 45px;
-        font-weight: bold;
+
+    /* ========================================================
+       PROGRESS HUB LINK
+       ======================================================== */
+
+    a {
+        color: var(--primary-color) !important;
     }
 
-    /* Weak concepts */
-    .weak-card {
-        padding: 20px;
-        margin-top: 20px;
-        border-radius: 15px;
-        background: #fff5f5;
-        border-left: 5px solid #ff4b4b;
+
+    /* ========================================================
+       DARK MODE
+       ======================================================== */
+
+    @media (prefers-color-scheme: dark) {
+
+        .stApp {
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(
+                        99,
+                        102,
+                        241,
+                        0.18
+                    ),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(
+                        139,
+                        92,
+                        246,
+                        0.14
+                    ),
+                    transparent 35%
+                ),
+                #0e1117;
+        }
+
+
+        [data-testid="stVerticalBlockBorderWrapper"] {
+            background: #161b22 !important;
+
+            border-color: #30363d !important;
+
+            box-shadow:
+                0 8px 25px rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                ) !important;
+        }
     }
 
-    /* Strong concepts */
-    .strong-card {
-        padding: 20px;
-        margin-top: 20px;
-        border-radius: 15px;
-        background: #f0fff4;
-        border-left: 5px solid #21c55d;
+
+    /* ========================================================
+       MOBILE
+       ======================================================== */
+
+    @media (max-width: 768px) {
+
+        .block-container {
+            padding-top: 1.5rem;
+
+            padding-left: 1rem;
+
+            padding-right: 1rem;
+        }
     }
 
     </style>
@@ -171,20 +304,11 @@ learning_style = st.session_state.get(
 # HEADER
 # ============================================================
 
-st.markdown(
-    """
-    <div class="quiz-header">
+st.title("🧠 BrainByte AI Quiz")
 
-        <h1>🧠 BrainByte AI Quiz</h1>
-
-        <p>
-            Test your understanding with an AI-generated
-            personalized quiz.
-        </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.write(
+    "Test your understanding with an AI-generated "
+    "personalized quiz."
 )
 
 
@@ -201,21 +325,35 @@ if not subject or not topic:
     st.stop()
 
 
-st.write(
-    f"**Student:** {student_name}"
-)
+# ============================================================
+# STUDENT INFORMATION
+# ============================================================
 
-st.write(
-    f"**Subject:** {subject}"
-)
+with st.container(border=True):
 
-st.write(
-    f"**Topic:** {topic}"
-)
+    st.subheader("📋 Quiz Information")
 
-st.write(
-    f"**Difficulty:** {difficulty}"
-)
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.write(
+            f"**Student:** {student_name}"
+        )
+
+        st.write(
+            f"**Subject:** {subject}"
+        )
+
+    with col2:
+
+        st.write(
+            f"**Topic:** {topic}"
+        )
+
+        st.write(
+            f"**Difficulty:** {difficulty}"
+        )
 
 
 # ============================================================
@@ -279,7 +417,6 @@ Rules:
 9. Do not include answers outside the JSON.
 """
 
-
     try:
 
         response = client.chat.completions.create(
@@ -307,7 +444,6 @@ Rules:
             }
         )
 
-
         content = response.choices[0].message.content
 
         data = json.loads(content)
@@ -317,8 +453,9 @@ Rules:
             []
         )
 
-
+        # ----------------------------------------------------
         # Validate question count
+        # ----------------------------------------------------
 
         if len(questions) != 5:
 
@@ -329,7 +466,9 @@ Rules:
             return None
 
 
+        # ----------------------------------------------------
         # Validate every question
+        # ----------------------------------------------------
 
         for question in questions:
 
@@ -414,37 +553,28 @@ with st.form("brainbyte_quiz_form"):
 
     for i, question in enumerate(questions):
 
-        st.markdown(
-            '<div class="quiz-card">',
-            unsafe_allow_html=True
-        )
+        # ----------------------------------------------------
+        # QUESTION CARD
+        # ----------------------------------------------------
 
+        with st.container(border=True):
 
-        st.markdown(
-            f"### Question {i + 1}"
-        )
+            st.subheader(
+                f"Question {i + 1}"
+            )
 
+            st.write(
+                question["question"]
+            )
 
-        st.write(
-            question["question"]
-        )
+            answer = st.radio(
+                "Choose your answer:",
+                question["options"],
+                key=f"question_{i}",
+                index=None
+            )
 
-
-        answer = st.radio(
-            "Choose your answer:",
-            question["options"],
-            key=f"question_{i}",
-            index=None
-        )
-
-
-        user_answers.append(answer)
-
-
-        st.markdown(
-            "</div>",
-            unsafe_allow_html=True
-        )
+            user_answers.append(answer)
 
 
     # IMPORTANT:
@@ -537,38 +667,23 @@ if submitted:
         st.session_state.quiz_submitted = True
 
 
-        st.markdown(
-            """
-            <div class="result-card">
-            """,
-            unsafe_allow_html=True
-        )
+        # ----------------------------------------------------
+        # RESULT CARD
+        # ----------------------------------------------------
 
+        with st.container(border=True):
 
-        st.subheader(
-            "🎯 Your Quiz Result"
-        )
+            st.subheader(
+                "🎯 Your Quiz Result"
+            )
 
+            st.markdown(
+                f"## {score}/{len(questions)}"
+            )
 
-        st.markdown(
-            f"""
-            <div class="score-number">
-                {score}/{len(questions)}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-        st.write(
-            f"Percentage: **{percentage:.0f}%**"
-        )
-
-
-        st.markdown(
-            "</div>",
-            unsafe_allow_html=True
-        )
+            st.write(
+                f"Percentage: **{percentage:.0f}%**"
+            )
 
 
         # ====================================================
@@ -577,28 +692,17 @@ if submitted:
 
         if weak_concepts:
 
-            st.markdown(
-                """
-                <div class="weak-card">
+            with st.container(border=True):
 
-                <h3>🔧 Concepts to Improve</h3>
-
-                """,
-                unsafe_allow_html=True
-            )
-
-
-            for concept in weak_concepts:
-
-                st.write(
-                    f"• {concept}"
+                st.subheader(
+                    "🔧 Concepts to Improve"
                 )
 
+                for concept in weak_concepts:
 
-            st.markdown(
-                "</div>",
-                unsafe_allow_html=True
-            )
+                    st.write(
+                        f"• {concept}"
+                    )
 
 
         # ====================================================
@@ -607,28 +711,17 @@ if submitted:
 
         if strong_concepts:
 
-            st.markdown(
-                """
-                <div class="strong-card">
+            with st.container(border=True):
 
-                <h3>💪 Strong Concepts</h3>
-
-                """,
-                unsafe_allow_html=True
-            )
-
-
-            for concept in strong_concepts:
-
-                st.write(
-                    f"• {concept}"
+                st.subheader(
+                    "💪 Strong Concepts"
                 )
 
+                for concept in strong_concepts:
 
-            st.markdown(
-                "</div>",
-                unsafe_allow_html=True
-            )
+                    st.write(
+                        f"• {concept}"
+                    )
 
 
         # ====================================================
