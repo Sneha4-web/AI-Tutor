@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 # =========================================================
 # PAGE SETTINGS
 # =========================================================
@@ -10,72 +11,335 @@ st.set_page_config(
     layout="wide"
 )
 
+
 # =========================================================
 # CUSTOM CSS
+# Works with BOTH light and dark Streamlit themes
 # =========================================================
 
 st.markdown("""
 <style>
 
-.main {
-    background-color: #f5f7fb;
+/* ========================================================
+   MAIN PAGE
+   ======================================================== */
+
+[data-testid="stAppViewContainer"] {
+    background: var(--background-color);
 }
 
-.title {
-    text-align: center;
-    font-size: 42px;
-    font-weight: bold;
-    color: #4b3f9b;
-    margin-bottom: 5px;
+[data-testid="stHeader"] {
+    background: var(--background-color);
 }
 
-.subtitle {
-    text-align: center;
-    font-size: 18px;
-    color: #666666;
-    margin-bottom: 35px;
+.main .block-container {
+    max-width: 1050px;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
 }
+
+
+/* ========================================================
+   BRAINBYTE HEADER
+   ======================================================== */
+
+.brainbyte-title {
+    text-align: center;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.brainbyte-subtitle {
+    text-align: center;
+    font-size: 17px;
+    color: var(--text-color);
+    opacity: 0.65;
+    margin-bottom: 38px;
+}
+
+
+/* ========================================================
+   SECTION TITLE
+   ======================================================== */
 
 .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     font-size: 24px;
-    font-weight: bold;
-    color: #4b3f9b;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    font-weight: 750;
+
+    color: var(--text-color);
+
+    margin-top: 28px;
+    margin-bottom: 14px;
 }
 
-.profile-card {
-    background-color: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+
+/* ========================================================
+   PROFILE CARDS
+   IMPORTANT:
+   These are REAL Streamlit containers created with
+   st.container(border=True)
+   ======================================================== */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+
+    background: var(--secondary-background-color);
+
+    border: 1px solid rgba(128, 128, 128, 0.22);
+
+    border-radius: 18px;
+
+    padding: 20px 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:hover {
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.12);
+
+    transform: translateY(-1px);
+}
+
+
+/* ========================================================
+   INPUT LABELS
+   ======================================================== */
+
+label {
+
+    color: var(--text-color) !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* ========================================================
+   TEXT INPUT
+   ======================================================== */
+
+[data-baseweb="input"] {
+
+    background: var(--background-color) !important;
+
+    border: 1px solid rgba(128, 128, 128, 0.30) !important;
+
+    border-radius: 10px !important;
+}
+
+[data-baseweb="input"]:focus-within {
+
+    border-color: var(--primary-color) !important;
+
+    box-shadow:
+        0 0 0 1px var(--primary-color) !important;
+}
+
+[data-baseweb="input"] input {
+
+    color: var(--text-color) !important;
+
+}
+
+
+/* ========================================================
+   NUMBER INPUT
+   ======================================================== */
+
+[data-testid="stNumberInput"] input {
+
+    color: var(--text-color) !important;
+
+    background: var(--background-color) !important;
+}
+
+
+/* ========================================================
+   SELECT BOX
+   ======================================================== */
+
+[data-baseweb="select"] > div {
+
+    background: var(--background-color) !important;
+
+    border: 1px solid rgba(128, 128, 128, 0.30) !important;
+
+    border-radius: 10px !important;
+}
+
+[data-baseweb="select"] span {
+
+    color: var(--text-color) !important;
+}
+
+
+/* ========================================================
+   BUTTONS
+   ======================================================== */
+
+.stButton > button {
+
+    width: 100%;
+
+    min-height: 46px;
+
+    border-radius: 11px;
+
+    border: 1px solid var(--primary-color);
+
+    background: var(--primary-color);
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.stButton > button:hover {
+
+    opacity: 0.88;
+
+    transform: translateY(-1px);
+}
+
+
+/* ========================================================
+   HELP / DESCRIPTION TEXT
+   ======================================================== */
+
+[data-testid="stMarkdownContainer"] p {
+
+    color: var(--text-color);
+}
+
+
+/* ========================================================
+   PROFILE SUMMARY
+   ======================================================== */
+
+.profile-summary {
+
+    background: var(--secondary-background-color);
+
+    border: 1px solid rgba(128, 128, 128, 0.25);
+
+    border-left: 5px solid var(--primary-color);
+
+    border-radius: 16px;
+
+    padding: 24px 26px;
+
+    margin-top: 15px;
+
+    box-shadow:
+        0 7px 24px rgba(0, 0, 0, 0.08);
+}
+
+.profile-summary h3 {
+
+    color: var(--primary-color);
+
+    margin-top: 0;
+
     margin-bottom: 20px;
 }
 
-.success-card {
-    background-color: #E64A45;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 5px solid #28a745;
-    margin-top: 20px;
+.profile-summary p {
+
+    color: var(--text-color);
+
+    margin: 9px 0;
+
+    font-size: 16px;
+}
+
+
+/* ========================================================
+   WELCOME MESSAGE
+   ======================================================== */
+
+.welcome-box {
+
+    background: var(--secondary-background-color);
+
+    border-radius: 14px;
+
+    padding: 14px 18px;
+
+    border: 1px solid rgba(128, 128, 128, 0.20);
+
+    margin-bottom: 10px;
+}
+
+.welcome-box p {
+
+    margin: 0;
+
+    color: var(--text-color);
+}
+
+
+/* ========================================================
+   DIVIDERS
+   ======================================================== */
+
+hr {
+
+    border-color: rgba(128, 128, 128, 0.25) !important;
+}
+
+
+/* ========================================================
+   MOBILE RESPONSIVE DESIGN
+   ======================================================== */
+
+@media (max-width: 768px) {
+
+    .main .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .brainbyte-title {
+        font-size: 34px;
+    }
+
+    .brainbyte-subtitle {
+        font-size: 15px;
+    }
+
+    .section-title {
+        font-size: 21px;
+    }
+
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        padding: 16px;
+        border-radius: 14px;
+    }
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# =========================================================
-# TITLE
-# =========================================================
-
-st.markdown(
-    '<div class="title">🧠 BrainByte</div>',
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    '<div class="subtitle">Personal AI Tutor - Create Your Learning Profile</div>',
-    unsafe_allow_html=True
-)
 
 # =========================================================
 # SESSION STATE
@@ -105,8 +369,26 @@ if "learning_style" not in st.session_state:
 if "profile_created" not in st.session_state:
     st.session_state.profile_created = False
 
+
 # =========================================================
-# PROFILE INFORMATION
+# HEADER
+# =========================================================
+
+st.markdown(
+    '<div class="brainbyte-title">🧠 BrainByte</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    '<div class="brainbyte-subtitle">'
+    'Personal AI Tutor · Create Your Learning Profile'
+    '</div>',
+    unsafe_allow_html=True
+)
+
+
+# =========================================================
+# BASIC INFORMATION
 # =========================================================
 
 st.markdown(
@@ -114,29 +396,32 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="profile-card">', unsafe_allow_html=True)
 
-name = st.text_input(
-    "Your Name",
-    value=st.session_state.student_name,
-    placeholder="Enter your name"
-)
+with st.container(border=True):
 
-age = st.number_input(
-    "Your Age",
-    min_value=5,
-    max_value=100,
-    value=st.session_state.age,
-    step=1
-)
+    name = st.text_input(
+        "Your Name",
+        value=st.session_state.student_name,
+        placeholder="Enter your name"
+    )
 
-learning_level = st.text_input(
-    "Class / Learning Level",
-    value=st.session_state.student_class,
-    placeholder="Example: Class 10, College, University, Beginner, Professional"
-)
+    age = st.number_input(
+        "Your Age",
+        min_value=5,
+        max_value=100,
+        value=st.session_state.age,
+        step=1
+    )
 
-st.markdown('</div>', unsafe_allow_html=True)
+    learning_level = st.text_input(
+        "Class / Learning Level",
+        value=st.session_state.student_class,
+        placeholder=(
+            "Example: Class 10, College, University, "
+            "Beginner, Professional"
+        )
+    )
+
 
 # =========================================================
 # SUBJECT
@@ -147,19 +432,21 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="profile-card">', unsafe_allow_html=True)
 
-subject_input = st.text_input(
-    "Enter Your Subject",
-    placeholder="Example: Mathematics, Physics, History, Python, Biology..."
-)
+with st.container(border=True):
 
-st.markdown(
-    "You can enter **any subject** you want to learn.",
-    unsafe_allow_html=True
-)
+    subject_input = st.text_input(
+        "Enter Your Subject",
+        placeholder=(
+            "Example: Mathematics, Physics, History, "
+            "Python, Biology..."
+        )
+    )
 
-st.markdown('</div>', unsafe_allow_html=True)
+    st.caption(
+        "💡 You can enter any subject you want to learn."
+    )
+
 
 # =========================================================
 # LEARNING GOAL
@@ -170,22 +457,22 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="profile-card">', unsafe_allow_html=True)
 
-goal = st.selectbox(
-    "What is your main goal?",
-    [
-        "Understand Concepts",
-        "Prepare for an Exam",
-        "Improve My Skills",
-        "Learn Something New",
-        "Complete Homework",
-        "Prepare for Competitive Exam",
-        "Professional Learning"
-    ]
-)
+with st.container(border=True):
 
-st.markdown('</div>', unsafe_allow_html=True)
+    goal = st.selectbox(
+        "What is your main goal?",
+        [
+            "Understand Concepts",
+            "Prepare for an Exam",
+            "Improve My Skills",
+            "Learn Something New",
+            "Complete Homework",
+            "Prepare for Competitive Exam",
+            "Professional Learning"
+        ]
+    )
+
 
 # =========================================================
 # STUDY TIME
@@ -196,21 +483,21 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="profile-card">', unsafe_allow_html=True)
 
-study_time = st.selectbox(
-    "How much time can you study every day?",
-    [
-        "15 minutes",
-        "30 minutes",
-        "1 hour",
-        "1-2 hours",
-        "2-3 hours",
-        "More than 3 hours"
-    ]
-)
+with st.container(border=True):
 
-st.markdown('</div>', unsafe_allow_html=True)
+    study_time = st.selectbox(
+        "How much time can you study every day?",
+        [
+            "15 minutes",
+            "30 minutes",
+            "1 hour",
+            "1-2 hours",
+            "2-3 hours",
+            "More than 3 hours"
+        ]
+    )
+
 
 # =========================================================
 # LEARNING STYLE
@@ -221,35 +508,41 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown('<div class="profile-card">', unsafe_allow_html=True)
 
-learning_style = st.selectbox(
-    "How do you like to learn?",
-    [
-        "Simple Explanation",
-        "Real-Life Examples",
-        "Step-by-Step Explanation",
-        "Exam Focused",
-        "Detailed Explanation",
-        "Practice Based"
-    ]
-)
+with st.container(border=True):
 
-st.markdown('</div>', unsafe_allow_html=True)
+    learning_style = st.selectbox(
+        "How do you like to learn?",
+        [
+            "Simple Explanation",
+            "Real-Life Examples",
+            "Step-by-Step Explanation",
+            "Exam Focused",
+            "Detailed Explanation",
+            "Practice Based"
+        ]
+    )
+
 
 # =========================================================
 # SAVE PROFILE
 # =========================================================
 
-st.markdown("---")
+st.markdown("")
 
-if st.button("💾 Save Profile", use_container_width=True):
+
+if st.button(
+    "💾 Save Profile",
+    use_container_width=True
+):
 
     if name.strip() == "":
         st.error("Please enter your name.")
 
     elif learning_level.strip() == "":
-        st.error("Please enter your class or learning level.")
+        st.error(
+            "Please enter your class or learning level."
+        )
 
     elif subject_input.strip() == "":
         st.error("Please enter a subject.")
@@ -270,7 +563,10 @@ if st.button("💾 Save Profile", use_container_width=True):
 
         st.session_state.profile_created = True
 
-        st.success("✅ Your profile has been saved successfully!")
+        st.success(
+            "✅ Your profile has been saved successfully!"
+        )
+
 
 # =========================================================
 # PROFILE SUMMARY
@@ -287,26 +583,41 @@ if st.session_state.profile_created:
 
     st.markdown(
         f"""
-        <div class="success-card">
+        <div class="profile-summary">
 
-        <h3>Welcome, {st.session_state.student_name}! 👋</h3>
+            <h3>
+                Welcome, {st.session_state.student_name}! 👋
+            </h3>
 
-        <p><b>Age:</b> {st.session_state.age}</p>
+            <p>
+                <b>Age:</b>
+                {st.session_state.age}
+            </p>
 
-        <p><b>Class / Learning Level:</b>
-        {st.session_state.student_class}</p>
+            <p>
+                <b>Class / Learning Level:</b>
+                {st.session_state.student_class}
+            </p>
 
-        <p><b>Subject:</b>
-        {st.session_state.selected_subject}</p>
+            <p>
+                <b>Subject:</b>
+                {st.session_state.selected_subject}
+            </p>
 
-        <p><b>Learning Goal:</b>
-        {st.session_state.goal}</p>
+            <p>
+                <b>Learning Goal:</b>
+                {st.session_state.goal}
+            </p>
 
-        <p><b>Daily Study Time:</b>
-        {st.session_state.study_time}</p>
+            <p>
+                <b>Daily Study Time:</b>
+                {st.session_state.study_time}
+            </p>
 
-        <p><b>Learning Style:</b>
-        {st.session_state.learning_style}</p>
+            <p>
+                <b>Learning Style:</b>
+                {st.session_state.learning_style}
+            </p>
 
         </div>
         """,
@@ -315,8 +626,9 @@ if st.session_state.profile_created:
 
     st.markdown("")
 
+
     # =====================================================
-    # START LEARNING BUTTON
+    # START LEARNING
     # =====================================================
 
     if st.button(
