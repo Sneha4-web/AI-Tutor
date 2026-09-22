@@ -8,8 +8,7 @@ client = OpenAI(
     timeout=30.0,
 )
 
-
-   def generate_next_topic(subject, current_topic, difficulty, quiz_score):
+def generate_next_topic(subject, current_topic, difficulty, quiz_score):
     prompt = f"""
 You are BrainByte, a personal AI tutor.
 
