@@ -1,21 +1,15 @@
+import streamlit as st
 from openai import OpenAI, APITimeoutError
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-API_KEY = st.secrets("API_KEY_3")
-
+API_KEY = st.secrets["API_KEY_3"]
 client = OpenAI(
     api_key=API_KEY,
-    base_url="https://api.groq.com/openai/v1"
+    base_url="https://api.groq.com/openai/v1",
+    timeout=30.0,
 )
-    timeout=30.0
-)
 
 
-def generate_next_topic(subject, current_topic, difficulty, quiz_score):
-
+   def generate_next_topic(subject, current_topic, difficulty, quiz_score):
     prompt = f"""
 You are BrainByte, a personal AI tutor.
 
